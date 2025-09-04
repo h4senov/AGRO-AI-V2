@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Status Detalları{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>🔎 Status Detalları</h2>
+
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <p><strong>ID:</strong> {{ areaStatus.id }}</p>
+            <p><strong>Sahə:</strong> {{ areaStatus.area.name }}</p>
+            <p><strong>Mutəxəssis:</strong> {{ areaStatus.specialist.name }}</p>
+            <p><strong>Tarix:</strong> {{ areaStatus.inspection_date }}</p>
+            <p><strong>Qeyd:</strong> {{ areaStatus.notes }}</p>
+            <p><strong>Status:</strong> <span class="badge bg-info">{{ areaStatus.status }}</span></p>
+        </div>
+    </div>
+
+    <a href="{{ url_for('list_status') }}" class="btn btn-secondary mt-3">← Geri</a>
+    <a href="{{ url_for('update_status', status_id=areaStatus.id) }}" class="btn btn-warning mt-3">✏️ Yenilə</a>
+</div>
+{% endblock %}

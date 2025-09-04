@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plant.name }} Sil{% endblock %}
+
+{% block content %}
+<h2>{{ plant.name }} silinsin?</h2>
+<form action="{{ url_for('delete_plant', plant_id=plant.id) }}" method="POST">
+    <button type="submit">Sil</button>
+</form>
+{% endblock %}

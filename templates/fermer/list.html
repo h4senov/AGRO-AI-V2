@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Fermerlər Siyahısı</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fermer.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fermerlər Siyahısı</h1>
+
+        <div class="actions">
+            <a href="{{ url_for('add_fermer') }}" class="btn">+ Yeni Fermer</a>
+            <a href="{{ url_for('home') }}" class="btn back">← Əsas Səhifə</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Əlaqə</th>
+                    <th>Sahə</th>
+                    <th>Əməliyyatlar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fermer in fermers.items %}
+                <tr>
+                    <td>{{ fermer.id }}</td>
+                    <td>{{ fermer.first_name }}</td>
+                    <td>{{ fermer.last_name }}</td>
+                    <td>{{ fermer.contact_info }}</td>
+                    <td>{{ fermer.area.name if fermer.area else "Seçilməyib" }}</td>
+                    <td>
+                        <a href="{{ url_for('single_fermer', fermer_id=fermer.id) }}" class="btn small">Bax</a>
+                        <a href="{{ url_for('delete_fermer', fermer_id=fermer.id) }}" class="btn small danger">Sil</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            {% if fermers.has_prev %}
+                <a href="{{ url_for('list_fermer', page=fermers.prev_num) }}">Əvvəlki</a>
+            {% endif %}
+            <span>Səhifə {{ fermers.page }} / {{ fermers.pages }}</span>
+            {% if fermers.has_next %}
+                <a href="{{ url_for('list_fermer', page=fermers.next_num) }}">Sonrakı</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

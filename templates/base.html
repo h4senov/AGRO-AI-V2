@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Fermer Sistemi{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="navbar">
+    <h1 class="logo">🌱 Fermer Sistemi</h1>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('list_plants') }}">🌿 Bitkilər</a></li>
+        <li><a href="{{ url_for('add_plant_base') }}">➕ Yeni Bitki</a></li>
+        <li><a href="{{ url_for('list_fermer') }}">👨‍🌾 Fermerlər</a></li>
+        <li><a href="{{ url_for('add_fermer') }}">➕ Yeni Fermer</a></li>
+        <li><a href="{{ url_for('add_area') }}">➕ Yeni Ərazi</a></li>
+        <li><a href="{{ url_for('list_area') }}"> Ərazilər</a></li>
+        <li><a href="{{ url_for('add_status') }}"> status əlavə et </a></li>
+        <li><a href="{{ url_for('list_status') }}"> statuslar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Fermer Sistemi</p>
+  </footer>
+</body>
+</html>

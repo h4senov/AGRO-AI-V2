@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Status Siyahısı{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">📋 Status Siyahısı</h2>
+
+    <a href="{{ url_for('add_status') }}" class="btn btn-success mb-3">+ Yeni Status</a>
+
+    <table class="table table-hover shadow-sm rounded">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Sahə</th>
+                <th>Mutəxəssis</th>
+                <th>Tarix</th>
+                <th>Status</th>
+                <th>Əməliyyatlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for status in areaStatuses.items %}
+            <tr>
+                <td>{{ status.id }}</td>
+                <td>{{ status.area.name }}</td>
+                <td>{{ status.specialist.name }}</td>
+                <td>{{ status.inspection_date }}</td>
+                <td><span class="badge bg-info">{{ status.status }}</span></td>
+                <td>
+                    <a href="{{ url_for('single_status', status_id=status.id) }}" class="btn btn-sm btn-primary">Bax</a>
+                    <a href="{{ url_for('delete_status', status_id=status.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Silinsin?')">Sil</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination">
+            {% if areaStatuses.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('list_status', page=areaStatuses.prev_num) }}">← Əvvəlki</a></li>
+            {% endif %}
+            {% if areaStatuses.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('list_status', page=areaStatuses.next_num) }}">Sonrakı →</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

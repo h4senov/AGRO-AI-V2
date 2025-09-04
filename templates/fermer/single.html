@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ fermer.first_name }} {{ fermer.last_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fermer.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ fermer.first_name }} {{ fermer.last_name }}</h1>
+        <p><b>Əlaqə:</b> {{ fermer.contact_info }}</p>
+        <p><b>Sahə:</b> {{ fermer.area.name if fermer.area else "Seçilməyib" }}</p>
+
+        <form action="{{ url_for('update_fermer', fermer_id=fermer.id) }}" method="POST" class="form">
+            <label>Ad:</label>
+            <input type="text" name="first_name" value="{{ fermer.first_name }}" required>
+
+            <label>Soyad:</label>
+            <input type="text" name="last_name" value="{{ fermer.last_name }}" required>
+
+            <label>Əlaqə:</label>
+            <input type="text" name="contact_info" value="{{ fermer.contact_info }}" required>
+
+            <label>Sahə:</label>
+            <select name="area_id">
+                <option value="">Seç</option>
+                {% for area in areas %}
+                    <option value="{{ area.id }}" {% if fermer.area_id == area.id %}selected{% endif %}>{{ area.name }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn">Yenilə</button>
+        </form>
+
+        <a href="{{ url_for('list_fermer') }}" class="btn back">← Geri</a>
+    </div>
+</body>
+</html>

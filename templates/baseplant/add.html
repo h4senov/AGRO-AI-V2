@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Yeni Bitki Əlavə Et{% endblock %}
+
+{% block content %}
+<h2>Yeni Bitki Əlavə Et</h2>
+<form method="post" class="form">
+  <label>Ad:</label>
+  <input type="text" name="name" required>
+
+  <label>Elmi Ad:</label>
+  <input type="text" name="scientific_name">
+
+  <label for="synonyms">Sinonimlər:</label>
+  <input type="text" id="synonyms" name="synonyms" placeholder="Sinonim adları daxil et">
+
+
+  <label>Ailə:</label>
+  <input type="text" name="family">
+
+  <label>Təsvir:</label>
+  <textarea name="description"></textarea>
+
+  <label>Zərərvericilər:</label>
+  <textarea name="pests"></textarea>
+  
+  <label>Şəkil əlavə et (istəyə bağlı):</label>
+  <input type="file" name="image" accept="image/*">
+
+  <button type="submit" class="btn">Əlavə Et</button>
+</form>
+{% endblock %}

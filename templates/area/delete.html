@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Sahəni Sil{% endblock %}
+
+{% block content %}
+<div class="area-container">
+  <h1>⚠️ Sahəni Sil</h1>
+  <p>Əminsinizmi ki, <b>{{ area.name }}</b> sahəsini silmək istəyirsiniz?</p>
+
+  <form action="{{ url_for('delete_area', area_id=area.id) }}" method="POST">
+    <button type="submit" class="btn danger">Bəli, Sil</button>
+    <a href="{{ url_for('list_area') }}" class="btn secondary">Ləğv Et</a>
+  </form>
+</div>
+{% endblock %}

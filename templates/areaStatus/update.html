@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Status Yenilə{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>✏️ Status Yenilə</h2>
+
+    <form method="POST" class="mt-3 shadow-sm p-4 rounded bg-light">
+        <div class="mb-3">
+            <label class="form-label">Sahə</label>
+            <select name="area_id" class="form-select" required>
+                {% for area in areas %}
+                <option value="{{ area.id }}" {% if area.id == areaStatus.area_id %}selected{% endif %}>{{ area.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Mutəxəssis ID</label>
+            <input type="number" name="specialist_id" class="form-control" value="{{ areaStatus.specialist_id }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Yoxlama Tarixi</label>
+            <input type="date" name="inspection_date" class="form-control" value="{{ areaStatus.inspection_date }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Qeyd</label>
+            <textarea name="notes" class="form-control" rows="3">{{ areaStatus.notes }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select" required>
+                <option value="yaxşı" {% if areaStatus.status == "yaxşı" %}selected{% endif %}>Yaxşı</option>
+                <option value="orta" {% if areaStatus.status == "orta" %}selected{% endif %}>Orta</option>
+                <option value="pis" {% if areaStatus.status == "pis" %}selected{% endif %}>Pis</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Yenilə</button>
+        <a href="{{ url_for('list_status') }}" class="btn btn-secondary">← Geri</a>
+    </form>
+</div>
+{% endblock %}

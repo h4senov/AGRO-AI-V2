@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Yeni Sahə Əlavə Et{% endblock %}
+
+{% block content %}
+<div class="area-container">
+  <h1>Yeni Sahə Əlavə Et</h1>
+
+  <form action="{{ url_for('add_area') }}" method="POST" class="area-form">
+    <div>
+      <label for="name">Ad</label>
+      <input type="text" name="name" id="name" required>
+    </div>
+
+    <div>
+      <label for="location">Ünvan</label>
+      <input type="text" name="location" id="location" required>
+    </div>
+
+    <div>
+      <label for="gps">GPS koordinatları</label>
+      <input type="text" name="gps" id="gps" placeholder="41.7151, 44.8271">
+    </div>
+
+    <div>
+      <label for="region">Region</label>
+      <input type="text" name="region" id="region">
+    </div>
+
+    <div>
+      <label for="size_hectares">Ölçü (hektar)</label>
+      <input type="number" step="0.01" name="size_hectares">
+    </div>
+
+    <div>
+      <label for="soil_id">Torpaq növü</label>
+      <select name="soil_id">
+        <option value="">Seç</option>
+        {% for soil in soils %}
+          <option value="{{ soil.id }}">{{ soil.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label for="approval_document">Təsdiq Sənədi</label>
+      <input type="text" name="approval_document">
+    </div>
+
+    <div id="map"></div>
+
+    <button type="submit" class="btn primary">Əlavə Et</button>
+    <a href="{{ url_for('list_area') }}" class="btn secondary">← Geri</a>
+  </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/area.js') }}"></script>
+{% endblock %}

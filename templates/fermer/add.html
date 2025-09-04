@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Yeni Fermer Əlavə Et{% endblock %}
+
+{% block content %}
+<h2>Yeni Fermer Əlavə Et</h2>
+<form method="post" class="form">
+  <label>Ad:</label>
+  <input type="text" name="first_name" required>
+
+  <label>Soyad:</label>
+  <input type="text" name="last_name" required>
+
+  <label>Əlaqə Məlumatı:</label>
+  <input type="text" name="contact_info" required>
+
+  <label>Sahə:</label>
+  <select name="area_id">
+      <option value="">Seç</option>
+      {% for area in areas %}
+          <option value="{{ area.id }}">{{ area.name }}</option>
+      {% endfor %}
+  </select>
+
+  <button type="submit" class="btn">Əlavə Et</button>
+</form>
+
+<a href="{{ url_for('list_fermer') }}" class="btn back">← Siyahıya qayıt</a>
+{% endblock %}

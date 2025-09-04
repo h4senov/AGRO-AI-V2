@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plant.name }} Redaktə{% endblock %}
+
+{% block content %}
+<h2>{{ plant.name }} Redaktə</h2>
+<form method="post" class="form">
+  <label>Ad:</label>
+  <input type="text" name="name" value="{{ plant.name }}" required>
+
+  <label>Elmi Ad:</label>
+  <input type="text" name="scientific_name" value="{{ plant.scientific_name }}">
+
+  <label>Ailə:</label>
+  <input type="text" name="family" value="{{ plant.family }}">
+
+  <label>Təsvir:</label>
+  <textarea name="description">{{ plant.description }}</textarea>
+
+  <label>Zərərvericilər:</label>
+  <textarea name="pests">{{ plant.pests }}</textarea>
+
+  <button type="submit" class="btn">Yadda Saxla</button>
+</form>
+{% endblock %}

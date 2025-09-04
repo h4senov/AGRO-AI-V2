@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Sahələr Siyahısı{% endblock %}
+
+{% block content %}
+<div class="area-container">
+  <h1>Sahələr Siyahısı</h1>
+
+  <a href="{{ url_for('add_area') }}" class="btn primary">+ Yeni Sahə</a>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Ad</th>
+        <th>Ünvan</th>
+        <th>Region</th>
+        <th>GPS</th>
+        <th>Ölçü (ha)</th>
+        <th>Əməliyyatlar</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for area in areas %}
+      <tr>
+        <td>{{ area.id }}</td>
+        <td>{{ area.name }}</td>
+        <td>{{ area.location }}</td>
+        <td>{{ area.region }}</td>
+        <td>{{ area.gps }}</td>
+        <td>{{ area.size_hectares }}</td>
+        <td>
+          <a href="{{ url_for('single_area', area_id=area.id) }}" class="btn small primary">Bax</a>
+          <a href="{{ url_for('delete_area', area_id=area.id) }}" class="btn small danger">Sil</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}{{ area.name }}{% endblock %}
+
+{% block content %}
+<div class="area-container">
+  <h1>📍 {{ area.name }}</h1>
+  <p><b>Ünvan:</b> {{ area.location }}</p>
+  <p><b>GPS:</b> {{ area.gps }}</p>
+  <p><b>Region:</b> {{ area.region }}</p>
+  <p><b>Ölçü:</b> {{ area.size_hectares }} ha</p>
+  <p><b>Torpaq:</b> {{ area.soil.name if area.soil else "Seçilməyib" }}</p>
+  <p><b>Sənəd:</b> {{ area.approval_document }}</p>
+
+  <div id="map"></div> <!-- xəritə -->
+
+  <form action="{{ url_for('update_area', area_id=area.id) }}" method="POST" class="area-form">
+    <label>Ad:</label>
+    <input type="text" name="name" value="{{ area.name }}" required>
+
+    <label>Ünvan:</label>
+    <input type="text" name="location" value="{{ area.location }}" required>
+
+    <label>GPS:</label>
+    <input type="text" name="gps" id="gps" value="{{ area.gps }}" required>
+
+    <label>Region:</label>
+    <input type="text" name="region" value="{{ area.region }}">
+
+    <label>Ölçü (ha):</label>
+    <input type="number" step="0.01" name="size_hectares" value="{{ area.size_hectares }}">
+
+    <label>Torpaq:</label>
+    <select name="soil_id">
+      <option value="">Seç</option>
+      {% for soil in soils %}
+        <option value="{{ soil.id }}" {% if area.soil_id == soil.id %}selected{% endif %}>{{ soil.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Sənəd:</label>
+    <input type="text" name="approval_document" value="{{ area.approval_document }}">
+
+    <button type="submit" class="btn">Yenilə</button>
+    <a href="{{ url_for('list_area') }}" class="btn secondary">← Siyahıya Qayıt</a>
+  </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/area.js') }}"></script>
+{% endblock %}
