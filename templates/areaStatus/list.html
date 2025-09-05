@@ -7,33 +7,42 @@
 
     <a href="{{ url_for('add_status') }}" class="btn btn-success mb-3">+ Yeni Status</a>
 
-    <table class="table table-hover shadow-sm rounded">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Sahə</th>
-                <th>Mutəxəssis</th>
-                <th>Tarix</th>
-                <th>Status</th>
-                <th>Əməliyyatlar</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for status in areaStatuses.items %}
-            <tr>
-                <td>{{ status.id }}</td>
-                <td>{{ status.area.name }}</td>
-                <td>{{ status.specialist.name }}</td>
-                <td>{{ status.inspection_date }}</td>
-                <td><span class="badge bg-info">{{ status.status }}</span></td>
-                <td>
-                    <a href="{{ url_for('single_status', status_id=status.id) }}" class="btn btn-sm btn-primary">Bax</a>
-                    <a href="{{ url_for('delete_status', status_id=status.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Silinsin?')">Sil</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <table class="table table-striped table-bordered shadow-sm rounded align-middle">
+    <thead class="table-success text-dark">
+        <tr>
+            <th>ID</th>
+            <th>Sahə</th>
+            <th>Mutəxəssis</th>
+            <th>Tarix</th>
+            <th>Status</th>
+            <th class="text-center">Əməliyyatlar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for status in areaStatuses.items %}
+        <tr>
+            <td>{{ status.id }}</td>
+            <td>{{ status.area.name }}</td>
+            <td>{{ status.specialist.name }}</td>
+            <td>{{ status.inspection_date.strftime('%d-%m-%Y') }}</td>
+            <td>
+                {% if status.status == "yaxşı" %}
+                    <span class="badge bg-success">{{ status.status }}</span>
+                {% elif status.status == "orta" %}
+                    <span class="badge bg-warning text-dark">{{ status.status }}</span>
+                {% else %}
+                    <span class="badge bg-danger">{{ status.status }}</span>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                <a href="{{ url_for('single_status', status_id=status.id) }}" class="btn btn-sm btn-primary">Bax</a>
+                <a href="{{ url_for('delete_status', status_id=status.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Silinsin?')">Sil</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 
     <!-- Pagination -->
     <nav>

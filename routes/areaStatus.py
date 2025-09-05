@@ -1,5 +1,6 @@
 from flask import request, render_template, redirect, url_for, flash
 from models import db, Area, AreaStatus, Specialist
+from datetime import datetime
 
 
 def register_fermer_areaStatus(app):
@@ -22,8 +23,9 @@ def register_fermer_areaStatus(app):
     def add_status():
         if request.method == 'POST':
             area_id = request.form['area_id']
-            specialist_id = request.form['specialist_id']
-            inspection_date = request.form['inspection_date']
+            specialist_id = request.form['specialist_id']   # select-dən gələcək
+            inspection_date_str = request.form['inspection_date']  # '2025-10-01'
+            inspection_date = datetime.strptime(inspection_date_str, '%Y-%m-%d').date()  # <-- Düzəliş burda
             notes = request.form['notes']
             status_value = request.form['status']
 
@@ -43,6 +45,7 @@ def register_fermer_areaStatus(app):
         specialists = Specialist.query.all()
         return render_template('areaStatus/add.html', areas=areas, specialists=specialists)
 
+
     @app.route('/status/<int:status_id>/delete', methods=['GET'], endpoint='delete_status')
     def delete_status(status_id):
         areaStatus = get_status_by_id(status_id)
@@ -51,14 +54,28 @@ def register_fermer_areaStatus(app):
         flash('Status uğurla silindi!', 'success')
         return redirect(url_for('list_status'))
 
-    @app.route('/status/<int:status_id>/update', methods=['POST'], endpoint='update_status')
+    
+
+    @app.route('/status/update/<int:status_id>', methods=['GET', 'POST'], endpoint='update_status')
     def update_status(status_id):
-        areaStatus = get_status_by_id(status_id)
-        areaStatus.area_id = request.form['area_id']
-        areaStatus.specialist_id = request.form['specialist_id']
-        areaStatus.inspection_date = request.form['inspection_date']
-        areaStatus.notes = request.form['notes']
-        areaStatus.status = request.form['status']
-        db.session.commit()
-        flash('Status uğurla yeniləndi!', 'success')
-        return redirect(url_for('single_status', status_id=areaStatus.id))
+        status = AreaStatus.query.get_or_404(status_id)
+
+        if request.method == 'POST':
+            status.area_id = request.form['area_id']
+            status.specialist_id = request.form['specialist_id']
+            
+            from datetime import datetime
+            status.inspection_date = datetime.strptime(
+                request.form['inspection_date'], "%Y-%m-%d"
+            ).date()
+
+            status.notes = request.form['notes']
+            status.status = request.form['status']
+
+            db.session.commit()
+            flash('Status yeniləndi!', 'success')
+            return redirect(url_for('list_status'))
+
+        return render_template('areaStatus/update.html', areaStatus=status, areas=Area.query.all(), specialists=Specialist.query.all())
+
+

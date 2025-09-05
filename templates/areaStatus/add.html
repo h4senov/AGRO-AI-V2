@@ -1,46 +1,64 @@
 {% extends "base.html" %}
 {% block title %}Yeni Status Əlavə Et{% endblock %}
 
-{% block content %}
-<div class="container mt-4">
-    <h2>➕ Yeni Status Əlavə Et</h2>
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/status.css') }}">
+{% endblock %}
 
-    <form method="POST" class="mt-3 shadow-sm p-4 rounded bg-light">
-        <div class="mb-3">
-            <label class="form-label">Sahə</label>
-            <select name="area_id" class="form-select" required>
+{% block content %}
+<div class="form-wrapper">
+    <h2 class="form-title">➕ Yeni Status Əlavə Et</h2>
+
+    <form method="POST" class="custom-form">
+        ...
+    </form>
+</div>
+ 
+<div class="form-wrapper">
+    <h2 class="form-title">➕ Yeni Status Əlavə Et</h2>
+
+    <form method="POST" class="custom-form">
+        <div class="form-group">
+            <label>Sahə</label>
+            <select name="area_id" required>
                 {% for area in areas %}
                 <option value="{{ area.id }}">{{ area.name }}</option>
                 {% endfor %}
             </select>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Mutəxəssis ID</label>
-            <input type="number" name="specialist_id" class="form-control" required>
+        <div class="form-group">
+            <label>Mütəxəssis</label>
+            <select name="specialist_id" required>
+                {% for specialist in specialists %}
+                <option value="{{ specialist.id }}">{{ specialist.name }}</option>
+                {% endfor %}
+            </select>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Yoxlama Tarixi</label>
-            <input type="date" name="inspection_date" class="form-control" required>
+        <div class="form-group">
+            <label>Yoxlama Tarixi</label>
+            <input type="date" name="inspection_date" required>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Qeyd</label>
-            <textarea name="notes" class="form-control" rows="3"></textarea>
+        <div class="form-group">
+            <label>Qeyd</label>
+            <textarea name="notes" rows="3" placeholder="Əlavə qeydlər..."></textarea>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select name="status" class="form-select" required>
+        <div class="form-group">
+            <label>Status</label>
+            <select name="status" required>
                 <option value="yaxşı">Yaxşı</option>
                 <option value="orta">Orta</option>
                 <option value="pis">Pis</option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-success">Əlavə Et</button>
-        <a href="{{ url_for('list_status') }}" class="btn btn-secondary">← Geri</a>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Əlavə Et</button>
+            <a href="{{ url_for('list_status') }}" class="btn btn-secondary">← Geri</a>
+        </div>
     </form>
 </div>
 {% endblock %}

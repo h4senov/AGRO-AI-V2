@@ -76,11 +76,15 @@ class Specialist(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    last_name = db.Column(db.String(100))
     contact_info = db.Column(db.String(100))
 
     inspections = db.relationship("AreaStatus", back_populates="specialist")
     problems_solved = db.relationship("Problem", back_populates="specialist")
 
+    @property
+    def full_name(self):    
+        return f"{self.name} {self.last_name}"  
 
 # -------------------- PROBLEMS --------------------
 class Problem(db.Model):

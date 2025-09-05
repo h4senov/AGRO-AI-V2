@@ -1,7 +1,8 @@
 from flask import Flask, render_template
-from models import init_db
+from models import init_db, db
 from datetime import datetime
 import os
+from flask_migrate import Migrate
 
 
 def create_app():
@@ -15,6 +16,8 @@ def create_app():
 
     # Init DB
     init_db(app)
+
+    migrate = Migrate(app, db)
 
     # Add datetime for all templates
     @app.context_processor
