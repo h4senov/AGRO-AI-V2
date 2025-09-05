@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Yeni Sahə Əlavə Et{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/area.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="area-container">
   <h1>Yeni Sahə Əlavə Et</h1>
@@ -18,7 +22,8 @@
 
     <div>
       <label for="gps">GPS koordinatları</label>
-      <input type="text" name="gps" id="gps" placeholder="41.7151, 44.8271">
+      <input type="text" name="gps" id="gps" placeholder="41.7151, 44.8271" readonly>
+      <button type="button" class="btn secondary" id="get-location">Konumu Al</button>
     </div>
 
     <div>
@@ -54,4 +59,5 @@
 </div>
 
 <script src="{{ url_for('static', filename='js/area.js') }}"></script>
+ 
 {% endblock %}
