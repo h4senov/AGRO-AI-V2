@@ -1,5 +1,5 @@
 AgroVision: The Beginning (Early Prototype)
-
+-----------------------------------------------------------
 Bu repozitariya AgroVision layihəsinin ən ilkin, təməl versiyasıdır. Burada kənd təsərrüfatı sahələrinin idarə olunması üçün Flask və Django ilə aparılan ilk struktur sınaqları və "back-to-basics" yanaşmaları yer alır.
 
 ⚠️ Qeyd: Bu layihə hal-hazırda aktiv inkişafda olan əsas layihə deyil, mənim proqramlaşdırma və aqrar texnologiyalar sahəsindəki ilk təcrübələrimi əks etdirən bir "learning archive"-dir.
